@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -111,11 +112,12 @@ namespace Microsoft.Data.Sqlite
             do
             {
                 Sqlite3StmtHandle stmt;
-                var rc = NativeMethods.sqlite3_prepare_v2(
+                var rc = NativeMethods.sqlite3_prepare_v2_blocking(
                     Connection.DbHandle,
                     tail,
                     out stmt,
-                    out tail);
+                    out tail,
+                    CommandTimeout*1000);
                 MarshalEx.ThrowExceptionForRC(rc, Connection.DbHandle);
 
                 // Statement was empty, white space, or a comment
@@ -154,9 +156,9 @@ namespace Microsoft.Data.Sqlite
                     throw new InvalidOperationException(Strings.FormatMissingParameters(string.Join(", ", unboundParams)));
                 }
 
-                rc = NativeMethods.sqlite3_step(stmt);
                 try
                 {
+                    rc = NativeMethods.sqlite3_step_blocking(stmt, CommandTimeout*1000);
                     MarshalEx.ThrowExceptionForRC(rc, Connection.DbHandle);
                 }
                 catch
@@ -180,7 +182,7 @@ namespace Microsoft.Data.Sqlite
             }
             while (!string.IsNullOrEmpty(tail));
 
-            return new SqliteDataReader(Connection.DbHandle, stmts, hasChanges ? changes : -1);
+            return new SqliteDataReader(Connection.DbHandle, stmts, hasChanges ? changes : -1, this);
         }
 
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior) => ExecuteReader(behavior);

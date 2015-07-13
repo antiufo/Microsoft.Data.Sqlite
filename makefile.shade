@@ -40,6 +40,14 @@ var sqliteDllPath='src/Microsoft.Data.Sqlite/runtimes/win-x86/native/sqlite3.dll
                     sqliteDllPath,
                     @"runtimes/win-x86/native/sqlite3.dll");
                 CreatePartFromFile(
+                	package,
+                	"src/Microsoft.Data.Sqlite/runtimes/win/native/x86/sqlite3ado.dll",
+                	"runtimes/win/native/x86/sqlite3ado.dll");
+                CreatePartFromFile(
+                	package,
+                	"src/Microsoft.Data.Sqlite/runtimes/win-x86/native/sqlite3ado.dll",
+                	"runtimes/win-x86/native/sqlite3ado.dll");
+                CreatePartFromFile(
                     package,
                     "src/Microsoft.Data.Sqlite/runtimes/win/native/x86/sqlite3.dll",
                     @"runtimes/win/native/x86/sqlite3.dll");

@@ -19,7 +19,6 @@ namespace Microsoft.Data.Sqlite.Interop
         {
             var rc = NativeMethods.sqlite3_close_v2(handle);
             handle = IntPtr.Zero;
-
             return rc == Constants.SQLITE_OK;
         }
     }

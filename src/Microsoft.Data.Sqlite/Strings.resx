@@ -183,4 +183,7 @@
   <data name="SqliteNativeError" xml:space="preserve">
     <value>SQLite Error {errorCode}: '{message}'</value>
   </data>
+  <data name="CommandTimeout" xml:space="preserve">
+    <value>The command execution time exceeded the command timeout options.</value>
+  </data>
 </root>

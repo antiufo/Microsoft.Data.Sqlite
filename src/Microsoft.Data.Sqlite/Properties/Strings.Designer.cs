@@ -347,7 +347,7 @@ namespace Microsoft.Data.Sqlite
         }
 
         /// <summary>
-        /// SQLite Error {errorCode}: '{message}'.
+        /// SQLite Error {errorCode}: '{message}'
         /// </summary>
         internal static string SqliteNativeError
         {
@@ -355,11 +355,27 @@ namespace Microsoft.Data.Sqlite
         }
 
         /// <summary>
-        /// SQLite Error {errorCode}: '{message}'.
+        /// SQLite Error {errorCode}: '{message}'
         /// </summary>
         internal static string FormatSqliteNativeError(object errorCode, object message)
         {
             return string.Format(CultureInfo.CurrentCulture, GetString("SqliteNativeError", "errorCode", "message"), errorCode, message);
+        }
+
+        /// <summary>
+        /// The command execution time exceeded the command timeout options.
+        /// </summary>
+        internal static string CommandTimeout
+        {
+            get { return GetString("CommandTimeout"); }
+        }
+
+        /// <summary>
+        /// The command execution time exceeded the command timeout options.
+        /// </summary>
+        internal static string FormatCommandTimeout()
+        {
+            return GetString("CommandTimeout");
         }
 
         private static string GetString(string name, params string[] formatterNames)

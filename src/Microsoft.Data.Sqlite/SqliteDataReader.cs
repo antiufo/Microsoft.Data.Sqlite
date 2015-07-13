@@ -30,7 +30,8 @@ namespace Microsoft.Data.Sqlite
         internal SqliteDataReader(
             Sqlite3Handle db,
             Queue<Tuple<Sqlite3StmtHandle, bool>> stmtQueue,
-            int recordsAffected)
+            int recordsAffected,
+            SqliteCommand command)
         {
             if (stmtQueue.Count != 0)
             {
@@ -42,7 +43,10 @@ namespace Microsoft.Data.Sqlite
             _db = db;
             _stmtQueue = stmtQueue;
             RecordsAffected = recordsAffected;
+            Command = command;
         }
+
+        internal SqliteCommand Command { get; set; }
 
         public override int Depth => 0;
 
@@ -94,7 +98,7 @@ namespace Microsoft.Data.Sqlite
                 return _hasRows;
             }
 
-            var rc = NativeMethods.sqlite3_step(_stmt);
+            var rc = NativeMethods.sqlite3_step_blocking(_stmt, Command.CommandTimeout*1000);
             MarshalEx.ThrowExceptionForRC(rc, _db);
 
             _done = rc == SQLITE_DONE;
