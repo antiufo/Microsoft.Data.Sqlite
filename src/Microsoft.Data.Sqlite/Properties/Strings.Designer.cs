@@ -8,7 +8,7 @@ namespace Microsoft.Data.Sqlite
     internal static class Strings
     {
         private static readonly ResourceManager _resourceManager
-            = new ResourceManager("Microsoft.Data.Sqlite.Strings", typeof(Strings).GetTypeInfo().Assembly);
+            = new ResourceManager("Shaman.Sqlite.Strings", typeof(Strings).GetTypeInfo().Assembly);
 
         /// <summary>
         /// {methodName} can only be called when the connection is open.

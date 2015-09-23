@@ -3,4 +3,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Microsoft.Data.Sqlite.Tests")]
+//[assembly: InternalsVisibleTo("Microsoft.Data.Sqlite.Tests")]
